@@ -5,13 +5,15 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 
 import ChatsScreen from './src/screens/ChatsScreen';
+import ChatScreen from './src/screens/ChatScreen';
 dayjs.locale('es');
 
 export default function App() {
   return (
     <PaperProvider>
       <View style={styles.container}>
-        <ChatsScreen />
+        {/* <ChatsScreen /> */}
+        <ChatScreen />
 
         <StatusBar style="auto" />
       </View>
