@@ -3,21 +3,28 @@ import { StyleSheet, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
+import { Navigator } from './src/navigation';
+import { useContext } from 'react';
+import { AuthContext, AuthProvider } from './src/context/AuthProvider';
+import PhoneScreen from './src/screens/PhoneScreen';
 
-import ChatsScreen from './src/screens/ChatsScreen';
-import ChatScreen from './src/screens/ChatScreen';
 dayjs.locale('es');
+
+const AuthApp = () => {
+  const { auth } = useContext(AuthContext);
+  return auth ? <Navigator /> : <PhoneScreen />;
+};
 
 export default function App() {
   return (
-    <PaperProvider>
-      <View style={styles.container}>
-        {/* <ChatsScreen /> */}
-        <ChatScreen />
-
-        <StatusBar style="auto" />
-      </View>
-    </PaperProvider>
+    <AuthProvider>
+      <PaperProvider>
+        <View style={styles.container}>
+          <AuthApp />
+          <StatusBar style="auto" />
+        </View>
+      </PaperProvider>
+    </AuthProvider>
   );
 }
 
