@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { List, Avatar } from 'react-native-paper';
+import { Text, TouchableOpacity } from 'react-native';
+import { List } from 'react-native-paper';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import styled from '@emotion/native';
+import { useNavigation } from '@react-navigation/native';
 import { ChatListImage } from './ChatListImage';
+
 dayjs.extend(relativeTime);
 
 const StyledListItem = styled(List.Item)`
@@ -12,8 +14,12 @@ const StyledListItem = styled(List.Item)`
 `;
 
 export const ChatListItem = ({ chat }) => {
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Chat', { id: chat.id, name: chat.user.name })}
+    >
       <StyledListItem
         title={chat.user.name}
         titleStyle={{ fontWeight: 'bold' }}
