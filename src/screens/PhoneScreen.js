@@ -1,8 +1,9 @@
-import { Keyboard } from 'react-native';
+import { Keyboard, View } from 'react-native';
 import React, { useContext, useState } from 'react';
 import styled from '@emotion/native';
+import { useForm, Controller } from 'react-hook-form';
 import { Body } from '../components/common/Body';
-import { Button, TextInput, Title } from 'react-native-paper';
+import { Button, HelperText, TextInput, Title } from 'react-native-paper';
 import { AuthContext } from '../context/AuthProvider';
 
 const CenterBody = styled(Body)`
@@ -12,32 +13,59 @@ const CenterBody = styled(Body)`
 `;
 const StyledTextInput = styled(TextInput)`
   width: 100%;
-  margin: 20px 0;
+  margin: 10px 0;
+`;
+
+const StyledView = styled(View)`
+  width: 100%;
 `;
 
 const PhoneScreen = () => {
-  const [phone, setPhone] = useState('');
+  const { control, handleSubmit, formState } = useForm();
   const { login } = useContext(AuthContext);
 
-  const onLogin = () => {
-    if (phone.length !== 8) return;
+  const onLogin = handleSubmit((data) => {
+    console.log({ data });
     login();
-  };
+  });
 
   return (
     <CenterBody onTouchStart={() => Keyboard.dismiss()}>
       <Title>Ingresa un número de teléfono</Title>
-      <StyledTextInput
-        label="Teléfono"
-        value={phone}
-        mode="outlined"
-        onChangeText={(text) => setPhone(text)}
-        keyboardType="phone-pad"
-        left={<TextInput.Affix text="+56 9 " />}
-        maxLength={8}
+
+      <Controller
+        control={control}
+        rules={{
+          required: 'Ingresa un número',
+          pattern: { value: /^\d{8}$/i, message: 'Formato inválido' },
+        }}
+        name="phone"
+        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+          <StyledView>
+            <StyledTextInput
+              label="Teléfono"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              mode="outlined"
+              keyboardType="phone-pad"
+              left={<TextInput.Affix text="+56 9 " />}
+              maxLength={8}
+              error={error}
+            />
+            <HelperText type="error" visible={Boolean(error)}>
+              {error?.message}
+            </HelperText>
+          </StyledView>
+        )}
       />
 
-      <Button icon="key" mode="contained" onPress={onLogin}>
+      <Button
+        icon="key"
+        mode="contained"
+        onPress={onLogin}
+        disabled={formState.isSubmitted && !formState.isValid}
+      >
         Ingresar
       </Button>
     </CenterBody>
