@@ -1,5 +1,5 @@
 import { Keyboard, View } from 'react-native';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/native';
 import { useForm, Controller } from 'react-hook-form';
 import { Body } from '../components/common/Body';
@@ -25,7 +25,7 @@ const PhoneScreen = () => {
   const { login } = useContext(AuthContext);
 
   const onLogin = handleSubmit((data) => {
-    console.log({ data });
+    console.log(data);
     login();
   });
 
