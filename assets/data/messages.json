@@ -1,8 +1,8 @@
 [
   {
     "id": "m1",
-    "text": "How are you, Lukas! I shoudl be the latest message",
-    "createdAt": "2022-11-11T12:48:00.000Z",
+    "text": "Hola, cómo estás?",
+    "createdAt": "2022-12-01T12:48:00.000Z",
     "user": {
       "id": "u1",
       "name": "Vadim"
@@ -10,8 +10,8 @@
   },
   {
     "id": "m2",
-    "text": "I am good, good",
-    "createdAt": "2022-11-03T14:49:00.000Z",
+    "text": "Estoy bien",
+    "createdAt": "2022-12-02T14:49:00.000Z",
     "user": {
       "id": "u2",
       "name": "Lukas"
@@ -19,8 +19,8 @@
   },
   {
     "id": "m3",
-    "text": "What about you?",
-    "createdAt": "2022-11-03T14:49:40.000Z",
+    "text": "Y tu?",
+    "createdAt": "2022-12-02T14:49:40.000Z",
     "user": {
       "id": "u2",
       "name": "Lukas"
@@ -28,8 +28,8 @@
   },
   {
     "id": "m4",
-    "text": "Good as well, preparing for the stream now.",
-    "createdAt": "2022-11-03T14:50:00.000Z",
+    "text": "Bien igual, estudiando un poco",
+    "createdAt": "2022-12-02T14:50:00.000Z",
     "user": {
       "id": "u1",
       "name": "Vadim"
@@ -37,8 +37,8 @@
   },
   {
     "id": "m5",
-    "text": "How is your uni going?",
-    "createdAt": "2022-11-03T14:51:00.000Z",
+    "text": "Que tal va la cosa?",
+    "createdAt": "2022-12-02T14:51:00.000Z",
     "user": {
       "id": "u1",
       "name": "Vadim"
@@ -46,8 +46,8 @@
   },
   {
     "id": "m6",
-    "text": "It is a bit tough, as I have 2 specializations. How about yours? Do you enjoy it?",
-    "createdAt": "2022-11-03T14:49:00.000Z",
+    "text": "Hmm un poco complejo la verdad, pero poniéndome al dia",
+    "createdAt": "2022-12-03T14:49:00.000Z",
     "user": {
       "id": "u2",
       "name": "Lukas"
@@ -55,8 +55,8 @@
   },
   {
     "id": "m7",
-    "text": "Big Data is really interesting. Cannot wait to go through all the material.",
-    "createdAt": "2022-11-03T14:53:00.000Z",
+    "text": "Ponle empeño que todo esfuerzo trae recompensa",
+    "createdAt": "2022-12-03T14:53:00.000Z",
     "user": {
       "id": "u1",
       "name": "Vadim"
@@ -64,8 +64,8 @@
   },
   {
     "id": "m8",
-    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "createdAt": "2022-11-03T14:53:00.000Z",
+    "text": "Asi que, no te rindas",
+    "createdAt": "2022-12-03T14:53:10.000Z",
     "user": {
       "id": "u1",
       "name": "Vadim"
@@ -73,38 +73,11 @@
   },
   {
     "id": "m9",
-    "text": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-    "createdAt": "2022-11-03T14:53:00.000Z",
+    "text": "Gracias.",
+    "createdAt": "2022-12-03T14:53:20.000Z",
     "user": {
       "id": "u2",
       "name": "Lukas"
-    }
-  },
-  {
-    "id": "m11",
-    "text": "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in",
-    "createdAt": "2022-11-03T14:53:00.000Z",
-    "user": {
-      "id": "u2",
-      "name": "Lukas"
-    }
-  },
-  {
-    "id": "m12",
-    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "createdAt": "2022-11-03T14:53:00.000Z",
-    "user": {
-      "id": "u1",
-      "name": "Vadim"
-    }
-  },
-  {
-    "id": "m13",
-    "text": "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in",
-    "createdAt": "2022-11-03T14:53:00.000Z",
-    "user": {
-      "id": "u1",
-      "name": "Vadim"
     }
   }
 ]
