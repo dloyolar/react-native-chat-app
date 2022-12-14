@@ -26,7 +26,7 @@ const PhoneScreen = () => {
 
   const onLogin = handleSubmit((data) => {
     console.log(data);
-    login();
+    login(data.phone);
   });
 
   return (
