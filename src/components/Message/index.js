@@ -2,6 +2,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import styled from '@emotion/native';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { AuthContext } from '../../context/AuthProvider';
+import { useContext } from 'react';
 dayjs.extend(relativeTime);
 
 const Container = styled(View)`
@@ -19,8 +21,9 @@ const TimeText = styled(Text)`
 `;
 
 export const Message = ({ message }) => {
+  const { auth } = useContext(AuthContext);
   const isMyMessage = () => {
-    return message.user.id === 'u1';
+    return message.phone === auth;
   };
 
   return (
@@ -29,8 +32,10 @@ export const Message = ({ message }) => {
       me={isMyMessage() ? 'flex-end' : undefined}
       style={styles.shadow}
     >
-      <Text>{message.text}</Text>
-      <TimeText>{dayjs(message.createdAt).fromNow(true)}</TimeText>
+      <Text>{message.content}</Text>
+      <TimeText>
+        {dayjs(new Date(message.createdAt.seconds * 1000).toISOString()).fromNow(true)}
+      </TimeText>
     </Container>
   );
 };
