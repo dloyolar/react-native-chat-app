@@ -36,7 +36,6 @@ const ChatScreen = () => {
               ...doc.data(),
             };
           });
-          console.log(firestoreMessages);
           setAllMessages(firestoreMessages);
         }
       );

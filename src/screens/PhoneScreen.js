@@ -25,7 +25,6 @@ const PhoneScreen = () => {
   const { login } = useContext(AuthContext);
 
   const onLogin = handleSubmit((data) => {
-    console.log(data);
     login(data.phone);
   });
 

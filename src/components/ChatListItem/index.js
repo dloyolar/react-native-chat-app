@@ -29,7 +29,9 @@ export const ChatListItem = ({ chat }) => {
         )}
         right={() => (
           <Text style={{ color: 'gray' }}>
-            {dayjs(chat?.lastMessage?.createdAt).fromNow(true) || ''}
+            {chat?.lastUpdate
+              ? dayjs(new Date(chat?.lastUpdate?.seconds * 1000).toISOString()).fromNow(true)
+              : ''}
           </Text>
         )}
       />

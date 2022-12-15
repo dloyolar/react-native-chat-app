@@ -2,13 +2,14 @@ import { FlatList } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import { ChatListItem } from '../components/ChatListItem';
 import { AuthContext } from '../context/AuthProvider';
-import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, query, where, orderBy } from 'firebase/firestore';
 import { firestore } from '../services/firebase';
+import { useContacts } from '../hooks/useContacts';
 
 const ChatsScreen = () => {
   const { auth } = useContext(AuthContext);
   const [chats, setChats] = useState([]);
-  console.log({ auth });
+  const contacts = useContacts();
 
   useEffect(() => {
     const unsuscribe = onSnapshot(
@@ -16,13 +17,20 @@ const ChatsScreen = () => {
       (snapshot) => {
         const firestoreChats = snapshot.docs.map((doc) => {
           const data = doc.data();
+
+          const otherPhone = data.phones.find((e) => e !== auth);
+          const contact = contacts.find((e) => e.phoneNumbers[0].number == otherPhone);
+
           return {
             id: doc.id,
-            name: data.phones[0] === auth ? data.phones[1] : data.phones[0],
+            name: contact ? `${contact.firstName} ${contact.lastName ?? ''}` : data.phones[0],
             lastMessage: data.lastMessage,
+            lastUpdate: data.lastUpdate,
           };
         });
-        console.log({ firestoreChats });
+
+        sortMessages(firestoreChats);
+
         setChats(firestoreChats);
       }
     );
@@ -31,6 +39,15 @@ const ChatsScreen = () => {
       unsuscribe();
     };
   }, [auth]);
+
+  const sortMessages = (messages) => {
+    const msgs = messages.sort((a, b) => {
+      const firstDate = a.lastUpdate ? new Date(a.lastUpdate * 1000).toISOString() : '';
+      const secondDate = b.lastUpdate ? new Date(b.lastUpdate * 1000).toISOString() : '';
+      return firstDate < secondDate ? 1 : firstDate > secondDate ? -1 : 0;
+    });
+    return msgs;
+  };
 
   return (
     <FlatList

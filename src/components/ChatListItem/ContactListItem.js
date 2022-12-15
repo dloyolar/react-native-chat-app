@@ -9,16 +9,16 @@ const StyledListItem = styled(List.Item)`
   border-bottom-color: whitesmoke;
 `;
 
-export const ContactListItem = ({ user, chatId }) => {
-  const navigation = useNavigation();
-
+export const ContactListItem = ({ user, navigate }) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Chat', { id: chatId, name: user.name })}>
+    <TouchableOpacity onPress={() => navigate()}>
       <StyledListItem
-        title={user.name}
+        title={`${user.firstName} ${user.lastName ?? ''}`}
         titleStyle={{ fontWeight: 'bold' }}
-        description={user?.status}
-        left={() => <ChatListImage imageUrl={user.image} />}
+        description={user?.status || ''}
+        left={() => (
+          <ChatListImage imageUrl={user.image || 'https://freesvg.org/img/Female-Avatar-5.png'} />
+        )}
       />
     </TouchableOpacity>
   );
