@@ -23,7 +23,7 @@ const ChatsScreen = () => {
 
           return {
             id: doc.id,
-            name: contact ? `${contact.firstName} ${contact.lastName ?? ''}` : data.phones[0],
+            name: contact ? `${contact.firstName}` : data.phones[0],
             lastMessage: data.lastMessage,
             lastUpdate: data.lastUpdate,
           };

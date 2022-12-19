@@ -52,6 +52,7 @@ const ChatScreen = () => {
       content: message,
       createdAt: new Date(),
       phone: auth,
+      type: 'text',
     });
 
     setDoc(
@@ -78,7 +79,7 @@ const ChatScreen = () => {
           extraData={allMessages}
         />
       </ImageBG>
-      <InputBox onNewMessage={onNewMessage} />
+      <InputBox onNewMessage={onNewMessage} auth={auth} chatId={chatId} />
     </KeyboardAvoidingView>
   );
 };
