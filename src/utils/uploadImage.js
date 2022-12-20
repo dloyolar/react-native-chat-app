@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { firestore, storage } from '../services/firebase';
 import { ref, uploadBytes } from 'firebase/storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -28,6 +28,14 @@ export const uploadImage = async (uri, auth, chatId) => {
     phone: auth,
     type: 'image',
   });
+
+  setDoc(
+    doc(firestore, 'chats', chatId),
+    {
+      lastMessage: 'Imagen',
+    },
+    { merge: true }
+  );
 };
 
 export const pickImage = async (auth, chatId) => {
