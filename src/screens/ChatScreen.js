@@ -2,12 +2,13 @@ import { ImageBackground, FlatList, KeyboardAvoidingView, Platform } from 'react
 import styled from '@emotion/native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import bg from '../../assets/images/wsp-bg.png';
-import { Message } from '../components/Message';
+import { Message } from '../components/Message/Message';
 import { InputBox } from '../components/InputBox';
 import { useContext, useEffect, useState } from 'react';
 import { addDoc, collection, doc, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
 import { firestore } from '../services/firebase';
 import { AuthContext } from '../context/AuthProvider';
+import { ChatRendered } from '../components/Message/ChatRendered';
 
 const ImageBG = styled(ImageBackground)`
   flex: 1;
@@ -73,7 +74,7 @@ const ChatScreen = () => {
       <ImageBG source={bg}>
         <FlatList
           data={allMessages}
-          renderItem={({ item }) => <Message message={item} />}
+          renderItem={ChatRendered}
           style={{ padding: 10 }}
           inverted
           extraData={allMessages}
