@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 export const uploadImage = async (uri, auth, chatId) => {
   const extension = uri.split('.').slice(-1)[0];
-  const path = 'chats/' + chatId + '/' + new Date().toISOString() + '.' + extension;
+  const path = 'chats/' + chatId + '/' + auth + new Date().toISOString() + '.' + extension;
   const imageRef = ref(storage, path);
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
