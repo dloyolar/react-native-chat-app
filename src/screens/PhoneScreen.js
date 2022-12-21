@@ -25,7 +25,9 @@ const PhoneScreen = () => {
   const { login } = useContext(AuthContext);
 
   const onLogin = handleSubmit((data) => {
-    login(data.phone);
+    const phoneSplitted = data.phone.match(/.{1,4}/g);
+    const phoneFormatted = `+56 9 ${phoneSplitted[0]} ${phoneSplitted[1]}`;
+    login(phoneFormatted);
   });
 
   return (
