@@ -3,6 +3,7 @@ import ChatsScreen from '../screens/ChatsScreen';
 import NotImplementedScreen from '../screens/NotImplementedScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +55,7 @@ export const MainTabNavigator = () => {
       />
       <Tab.Screen
         name="Ajustes"
-        component={NotImplementedScreen}
+        component={SettingsScreen}
         options={{
           tabBarIcon: ({ size, color }) => <Ionicons name="settings" size={size} color={color} />,
         }}
