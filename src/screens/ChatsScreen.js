@@ -2,16 +2,35 @@ import { FlatList } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import { ChatListItem } from '../components/ChatListItem';
 import { AuthContext } from '../context/AuthProvider';
-import { collection, getDocs, onSnapshot, query, where, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { firestore } from '../services/firebase';
-import { useContacts } from '../hooks/useContacts';
+import * as Contacts from 'expo-contacts';
 
 const ChatsScreen = () => {
   const { auth } = useContext(AuthContext);
   const [chats, setChats] = useState([]);
-  const contacts = useContacts();
 
   useEffect(() => {
+    let contacts = null;
+    const getContacts = async () => {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status === 'granted') {
+        const { data } = await Contacts.getContactsAsync({
+          fields: [
+            Contacts.Fields.FirstName,
+            Contacts.Fields.LastName,
+            Contacts.Fields.PhoneNumbers,
+          ],
+        });
+
+        if (data.length > 0) {
+          contacts = data;
+        }
+      }
+    };
+
+    getContacts();
+
     const unsuscribe = onSnapshot(
       query(collection(firestore, '/chats'), where('phones', 'array-contains', auth)),
       (snapshot) => {
