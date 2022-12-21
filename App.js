@@ -7,8 +7,10 @@ import { Navigator } from './src/navigation';
 import { useContext } from 'react';
 import { AuthContext, AuthProvider } from './src/context/AuthProvider';
 import PhoneScreen from './src/screens/PhoneScreen';
-
+import * as SplashScreen from 'expo-splash-screen';
 dayjs.locale('es');
+
+SplashScreen.preventAutoHideAsync();
 
 const AuthApp = () => {
   const { auth } = useContext(AuthContext);
