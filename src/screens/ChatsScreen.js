@@ -1,16 +1,20 @@
-import { FlatList } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+import { FlatList, Linking, Text, View } from 'react-native';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { ChatListItem } from '../components/ChatListItem';
 import { AuthContext } from '../context/AuthProvider';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { firestore } from '../services/firebase';
 import * as Contacts from 'expo-contacts';
+import { Button } from 'react-native-paper';
 
 const ChatsScreen = () => {
   const { auth } = useContext(AuthContext);
   const [chats, setChats] = useState([]);
+  const [hasPermissions, setHasPermissions] = useState(false);
 
   useEffect(() => {
+    void checkPermissions();
+    if (!hasPermissions) return;
     let contacts = null;
     const getContacts = async () => {
       const { status } = await Contacts.requestPermissionsAsync();
@@ -42,7 +46,7 @@ const ChatsScreen = () => {
 
           return {
             id: doc.id,
-            name: contact ? `${contact.firstName}` : data.phones[0],
+            name: contact ? `${contact.firstName}` : data.phones[1],
             lastMessage: data.lastMessage,
             lastUpdate: data.lastUpdate,
           };
@@ -57,7 +61,19 @@ const ChatsScreen = () => {
     return () => {
       unsuscribe();
     };
-  }, [auth]);
+  }, [auth, hasPermissions]);
+
+  const checkPermissions = async () => {
+    const { granted } = await Contacts.getPermissionsAsync();
+    if (!granted) return;
+    setHasPermissions(true);
+  };
+
+  const askPermissions = async () => {
+    const res = await Contacts.requestPermissionsAsync();
+    if (res.status === 'granted') return setHasPermissions(true);
+    Linking.openSettings();
+  };
 
   const sortMessages = (messages) => {
     const msgs = messages.sort((a, b) => {
@@ -68,6 +84,17 @@ const ChatsScreen = () => {
     return msgs;
   };
 
+  if (!hasPermissions) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Necesitas otorgar permisos para utilizar la App</Text>
+
+        <Button icon="key" mode="outlined" onPress={askPermissions}>
+          Dar permisos
+        </Button>
+      </View>
+    );
+  }
   return (
     <FlatList
       data={chats}
